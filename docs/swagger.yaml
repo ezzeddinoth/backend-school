@@ -1,0 +1,488 @@
+basePath: /api
+definitions:
+  dto.Menu:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  dto.PostMenu:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  dto.PostStudent:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  dto.PostSubscribe:
+    properties:
+      day:
+        type: string
+      menuID:
+        type: integer
+      studentID:
+        type: integer
+    required:
+    - day
+    - menuID
+    - studentID
+    type: object
+  dto.ResponseError:
+    properties:
+      errorMessage:
+        type: string
+    type: object
+  dto.Student:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      subscription:
+        items:
+          $ref: '#/definitions/dto.StudentSubscrip'
+        type: array
+    required:
+    - id
+    - name
+    type: object
+  dto.StudentSubscrip:
+    properties:
+      day:
+        type: string
+      menu:
+        type: string
+    required:
+    - day
+    - menu
+    type: object
+  dto.Subscribe:
+    properties:
+      day:
+        type: string
+      id:
+        type: integer
+      menuID:
+        type: integer
+      studentID:
+        type: integer
+    required:
+    - day
+    - id
+    - menuID
+    - studentID
+    type: object
+info:
+  contact: {}
+  description: school Specification
+  title: school
+  version: "1.0"
+paths:
+  /menu:
+    delete:
+      consumes:
+      - application/json
+      description: update menu entries
+      parameters:
+      - description: create menu entries
+        in: body
+        name: id
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: update menu entries
+      tags:
+      - menu
+    get:
+      description: get all menus
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.Menu'
+            type: array
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: get all menus
+      tags:
+      - menu
+    post:
+      consumes:
+      - application/json
+      description: create menu entries
+      parameters:
+      - description: create menu entries
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PostMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Menu'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: create menu entries
+      tags:
+      - menu
+    put:
+      consumes:
+      - application/json
+      description: update menu entries
+      parameters:
+      - description: create menu entries
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Menu'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: update menu entries
+      tags:
+      - menu
+  /student:
+    delete:
+      consumes:
+      - application/json
+      description: update student entries
+      parameters:
+      - description: create student entries
+        in: body
+        name: id
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: update student entries
+      tags:
+      - student
+    get:
+      description: get all students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.Student'
+            type: array
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: get all students
+      tags:
+      - student
+    post:
+      consumes:
+      - application/json
+      description: create student entries
+      parameters:
+      - description: create student entries
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PostStudent'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Student'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: create student entries
+      tags:
+      - student
+    put:
+      consumes:
+      - application/json
+      description: update student entries
+      parameters:
+      - description: create student entries
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Student'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: update student entries
+      tags:
+      - student
+  /subscribe:
+    post:
+      consumes:
+      - application/json
+      description: create subscribe entries
+      parameters:
+      - description: create subscribe entries
+        in: body
+        name: subscribe
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/dto.PostSubscribe'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Subscribe'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "401":
+          description: Not Authorized
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ResponseError'
+      security:
+      - OAuth2Password: []
+      - Bearer: []
+      summary: create subscribe entries
+      tags:
+      - subscribe
+  /version:
+    get:
+      consumes:
+      - application/json
+      description: get version info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Not Authorized
+          schema:
+            type: string
+      summary: get version info
+      tags:
+      - public endpoints
+securityDefinitions:
+  Bearer:
+    description: Type "Bearer " followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+  OAuth2Password:
+    description: Authorization
+    flow: password
+    tokenUrl: http://srvch025166003:8080/auth/realms/dfi_realm/protocol/openid-connect/token
+    type: oauth2
+swagger: "2.0"

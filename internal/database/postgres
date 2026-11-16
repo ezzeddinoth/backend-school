@@ -1,0 +1,30 @@
+podman run -d \  --name postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=secret \
+  -e POSTGRES_DB=mydb \
+  -p 5432:5432 \
+  -v postgres_data:/var/lib/postgresql/data \
+  docker.io/library/postgres:17
+
+
+CREATE TABLE student (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE menu (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE subscribe (
+    id SERIAL PRIMARY KEY,
+    student_id INT NOT NULL,
+    menu_id INT NOT NULL,
+    day VARCHAR(50) NOT NULL,
+
+    UNIQUE (student_id, menu_id, day),
+
+    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (menu_id) REFERENCES menu(id)
+);

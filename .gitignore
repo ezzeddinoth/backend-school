@@ -1,0 +1,5 @@
+.vscode/
+cmd/.env
+cmd/*.exe
+cmd/*.bat
+coverdata
